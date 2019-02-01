@@ -4,6 +4,8 @@ import SearchBox from '../components/SearchBox';
 import Scroll from '../components/Scroll';
 import './App.css';
 
+
+
 class App extends Component {
   constructor() {
     super()
@@ -23,6 +25,17 @@ class App extends Component {
     this.setState({ searchfield: event.target.value })
   }
 
+  popupFunc = () => {
+    var popup=document.getElementsByClassName('popup')[0];
+    popup.style.visibility='visible';
+  }
+
+  closeFunc = () => {
+    
+    var popup1=document.getElementsByClassName('popup')[0];
+    popup1.style.visibility='hidden';
+  }
+
   render() {
     const { robots, searchfield } = this.state;
     const filteredRobots = robots.filter(robot =>{
@@ -32,7 +45,19 @@ class App extends Component {
       <h1>Loading</h1> :
       (
         <div className='tc'>
+          <div className='title'>
           <h1 className='f1'>RoboFriends</h1>
+          <p className='about' onClick={this.popupFunc}>About</p>
+          </div>
+
+
+          <div className='popup'>
+
+            A responsive application with React that dynamically searches Robot contact cards with input. It fetches contact data from JSON file and used RoboHash API to make custom robots. Also the search function is integrated with Redux to manage the states.
+            <p>
+            <button className='close' onClick={this.closeFunc}>close</button></p>
+
+          </div>
           <SearchBox searchChange={this.onSearchChange}/>
           <Scroll>
             <CardList robots={filteredRobots} />
